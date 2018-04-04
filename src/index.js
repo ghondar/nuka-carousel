@@ -1006,6 +1006,9 @@ export default class Carousel extends React.Component {
               cellSpacing: this.props.cellSpacing,
               slidesToShow: this.props.slidesToShow,
               wrapAround: this.props.wrapAround,
+              buttonStyles: this.props.buttonStyles,
+              prevIcon: this.props.prevIcon,
+              nextIcon: this.props.nextIcon,
               nextSlide: () => this.nextSlide(),
               previousSlide: () => this.previousSlide(),
               goToSlide: index => this.goToSlide(index)
@@ -1128,6 +1131,7 @@ Carousel.defaultProps = {
   slidesToScroll: 1,
   slidesToShow: 1,
   style: {},
+  buttonStyles: {},
   renderCenterLeftControls: props => <PreviousButton {...props} />,
   renderCenterRightControls: props => <NextButton {...props} />,
   renderBottomCenterControls: props => <PagingDots {...props} />,

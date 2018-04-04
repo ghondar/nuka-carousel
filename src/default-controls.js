@@ -1,14 +1,19 @@
 import React from 'react';
 
-const defaultButtonStyles = disabled => ({
-  border: 0,
-  background: 'rgba(0,0,0,0.4)',
-  color: 'white',
-  padding: 10,
-  outline: 0,
-  opacity: disabled ? 0.3 : 1,
-  cursor: disabled ? 'not-allowed' : 'pointer'
-});
+const defaultButtonStyles = (disabled, buttonStyles) => {
+  return Object.assign(
+    {
+      border: 0,
+      background: 'rgba(0,0,0,0.4)',
+      color: 'white',
+      padding: 10,
+      outline: 0,
+      opacity: disabled ? 0.3 : 1,
+      cursor: disabled ? 'not-allowed' : 'pointer'
+    },
+    buttonStyles
+  );
+};
 
 export class PreviousButton extends React.Component {
   constructor() {
@@ -20,12 +25,21 @@ export class PreviousButton extends React.Component {
     this.props.previousSlide();
   }
   render() {
+    const { prevIcon, buttonStyles } = this.props;
     const disabled =
       (this.props.currentSlide === 0 && !this.props.wrapAround) ||
       this.props.slideCount === 0;
-    return (
+    return prevIcon ? (
+      <div
+        style={defaultButtonStyles(disabled, buttonStyles)}
+        disabled={disabled}
+        onClick={this.handleClick}
+      >
+        {prevIcon}
+      </div>
+    ) : (
       <button
-        style={defaultButtonStyles(disabled)}
+        style={defaultButtonStyles(disabled, buttonStyles)}
         disabled={disabled}
         onClick={this.handleClick}
       >
@@ -45,12 +59,21 @@ export class NextButton extends React.Component {
     this.props.nextSlide();
   }
   render() {
+    const { nextIcon, buttonStyles } = this.props;
     const disabled =
       this.props.currentSlide + this.props.slidesToScroll >=
         this.props.slideCount && !this.props.wrapAround;
-    return (
+    return nextIcon ? (
+      <div
+        style={defaultButtonStyles(disabled, buttonStyles)}
+        disabled={disabled}
+        onClick={this.handleClick}
+      >
+        {nextIcon}
+      </div>
+    ) : (
       <button
-        style={defaultButtonStyles(disabled)}
+        style={defaultButtonStyles(disabled, buttonStyles)}
         disabled={disabled}
         onClick={this.handleClick}
       >
